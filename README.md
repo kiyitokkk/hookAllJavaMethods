@@ -6,9 +6,10 @@
 ```
 在里面填入class名称即可
 hookClass("")
+![调用](hook.png)
 ```
 # 效果
 ![hook效果](fridatrance.png)
 ![打印类变量](类变量.png)
-![调用](hook.png)
+
 
