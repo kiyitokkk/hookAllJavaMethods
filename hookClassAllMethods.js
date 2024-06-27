@@ -107,9 +107,10 @@ Java.perform(function(){
     classs.getDeclaredMethods().forEach(function(method){
         console.log(method)
        var methodsName = method.getName();
-       var overloads  = classStudent[methodsName].overloads;
+        try {
+            var overloads  = classStudent[methodsName].overloads;
     //    console.log(overloads.length)
-       for (var i=0; i< overloads.length; i++){
+            for (var i=0; i< overloads.length; i++){
             overloads[i].implementation = function () {
             console.log('\n')
             console.warn('\x1B[34m\x1B[1m', "进入" + classs.getName() + "类的" + methodsName + "方法")
@@ -126,7 +127,7 @@ Java.perform(function(){
                         console.log('\x1B[32m\x1B[1m',"参数" + j + "字节数组转换为字符串结果为" +  (ByteString.of(arguments[j]).utf8()))
                     }
                 }catch (e) {
-                    
+
                 }
 
             }
@@ -142,6 +143,10 @@ Java.perform(function(){
             return result;
             };
         }
+        }catch (e) {
+
+        }
+
     })
     console.log('\n')
 })
