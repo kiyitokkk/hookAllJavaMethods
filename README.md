@@ -11,6 +11,3 @@ hookClass("")
 ![hook效果](fridatrance.png)
 ![调用](hook.png)
 
-# tips
-
-新增对byte类型的数据进行打印方便分析
