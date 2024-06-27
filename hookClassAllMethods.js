@@ -105,10 +105,9 @@ Java.perform(function(){
     console.log('\x1B[36m\x1B[1m',"===========" + classs +  "的所有方法==============")
     //输出所有方法,并hook
     classs.getDeclaredMethods().forEach(function(method){
-        console.log(method, "method")
+        console.log(method)
        var methodsName = method.getName();
-        try {
-        var overloads  = classStudent[methodsName].overloads;
+       var overloads  = classStudent[methodsName].overloads;
     //    console.log(overloads.length)
        for (var i=0; i< overloads.length; i++){
             overloads[i].implementation = function () {
@@ -119,7 +118,7 @@ Java.perform(function(){
             for(var j=0; j<arguments.length; j++){
                 console.error("\x1B[32m\x1B[1m", "参数" + j + " => " + arguments[j])
                 if (typeof (arguments[j]) === "object"){
-                    console.log('\x1B[32m\x1B[1m',"正在尝试打印object类型参数" + j  + "====>" + JSON.stringify(arguments[j]))
+                    console.log('\x1B[32m\x1B[1m',"正在尝试打印object类型参数" + i  + "====>" + JSON.stringify(arguments[i]))
                 }
                 try {
                     if ( parameterTypes[j].getName() === '[B') {
@@ -127,7 +126,7 @@ Java.perform(function(){
                         console.log('\x1B[32m\x1B[1m',"参数" + j + "字节数组转换为字符串结果为" +  (ByteString.of(arguments[j]).utf8()))
                     }
                 }catch (e) {
-
+                    
                 }
 
             }
@@ -135,34 +134,29 @@ Java.perform(function(){
               console.log("该函数无参数");
             }
             var result = this[methodsName].apply(this,arguments)
-
+            console.error("结果是 => " + result )
             if (return_type.getName() === "[B") {
-                console.error("结果是 => " + result )
                 console.error("尝试打印byte类型返回值")
                 console.error("返回值字节数组转换为字符串结果为" +  (ByteString.of(result).utf8()))
-            }else {
-                console.error("结果是 => " + result )
             }
             return result;
             };
-        }
-        }catch {
-
         }
     })
     console.log('\n')
 })
 }
 function bypass_frida() {
-    // 反调试frida 可过frida的字符检测以及maps文件映射检测
+    // 可过字符匹配与maps文件检测
     console.log("bypass frida is runing")
     hook_open()
     replace_str()
 }
 
 
-
-
-
-
-
+function main() {
+    Java.perform(function () {
+        console.log("   >>>  hookClass()                                         hook该类中所有方法以及该类子类中的所有方法并打印类中的变量");
+    })
+}
+setImmediate(main)
